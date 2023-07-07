@@ -1,4 +1,4 @@
-# SignalFilter.jl 
+# SignalFiltering.jl 
 
 Extremely basic median filtering method for matrices and vectors.
 For matrices, it simply takes the median of the four
