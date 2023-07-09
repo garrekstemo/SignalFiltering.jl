@@ -4,7 +4,7 @@
 A naive filter that takes the median value of the four 
 neighboring (non-diagonal) values in matrix `A` around index `(i, j)`.
 """
-function median_filter(A::AbstractMatrix, i::Int, j::Int, window_size::Int=1)
+function median_filter(A::AbstractArray, i::Int, j::Int, window_size::Int=1)
     _A = copy(A)
     median_filter!(_A, i, j, window_size)
     return _A
@@ -15,7 +15,7 @@ end
 
 Like `median_filter(A, i, j, window_size)` but the input matrix may be replaced.
 """
-function median_filter!(A::AbstractMatrix, i::Int, j::Int, window_size::Int=1)
+function median_filter!(A::AbstractArray, i::Int, j::Int, window_size::Int=1)
     if iseven(window_size)
         throw(ArgumentError("window_size must be odd to have a center element"))
     end
