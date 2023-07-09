@@ -55,11 +55,11 @@ end
 
 
 """
-    band_filter(A, pxls, dim=1)
+    band_filter!(A, pxls, dim=1)
 
 Apply a median filter to a pixel band in `pxls` along dimension `dim` of matrix `A`.
 """
-function band_filter(A, pxls, dim=1)
+function band_filter!(A, pxls, dim=1)
     for (i, row) in enumerate(eachrow(A))
         for (j, col) in enumerate(eachcol(A))
             pixeldim = i
@@ -73,4 +73,27 @@ function band_filter(A, pxls, dim=1)
             end
         end
     end
+end
+
+"""
+    band_filter(A, pxls, dim=1)
+
+Like `band_filter!(A, pxls, dim=1)` but the input matrix may be replaced.
+"""
+function band_filter(A, pxls, dim=1)
+    _A = copy(A)
+    for (i, row) in enumerate(eachrow(_A))
+        for (j, col) in enumerate(eachcol(_A))
+            pixeldim = i
+            if dim == 2
+                pixeldim = j
+            end
+            if pixeldim in pxls
+                if j != 1 && j != lastindex(_A[:, j])
+                    median_filter!(_A, i, j, 3)
+                end
+            end
+        end
+    end
+    return _A
 end
