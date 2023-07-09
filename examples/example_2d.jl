@@ -37,16 +37,20 @@ DataInspector()
 
 levels = minimum(z)-2:1:maximum(z)+2
 ax1 = Axis(fig[1, 1], title = "raw", xticks = x[1]:x[end], yticks = y[1]:2:y[end])
-ct1 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
-contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
-Colorbar(fig[1, 2], ct1, label = "Intensity")
+# ct1 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
+# contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
+hm = heatmap!(x, y, z, colormap = :RdBu)
+Colorbar(fig[1, 2], hm, label = "Intensity")
 
-z = transpose(z)
-band_filter(z, 37:40, 1)
+# Test if this works with a transpose
+z = transpose(z) 
+median_filter!(z, 35:42, 2)
 
 zax2 = Axis(fig[2, 1], title = "filtered", xticks = x[1]:2:x[end], yticks = y[1]:5:y[end])
-ct2 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
-contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
-Colorbar(fig[2, 2], ct2, label = "Intensity")
+# ct2 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
+# contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
+hm = heatmap!(x, y, z, colormap = :RdBu)
+scatter!(x[25], y[40])
+Colorbar(fig[2, 2], hm, label = "Intensity")
 
 fig
