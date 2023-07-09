@@ -1,7 +1,8 @@
 module SignalFiltering
 
 export  median_filter,
-        median_filter!
+        median_filter!,
+        band_filter
 
 using Statistics
 
