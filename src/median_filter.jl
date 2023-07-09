@@ -82,18 +82,6 @@ Like `band_filter!(A, pxls, dim=1)` but the input matrix may be replaced.
 """
 function band_filter(A, pxls, dim=1)
     _A = copy(A)
-    for (i, row) in enumerate(eachrow(_A))
-        for (j, col) in enumerate(eachcol(_A))
-            pixeldim = i
-            if dim == 2
-                pixeldim = j
-            end
-            if pixeldim in pxls
-                if j != 1 && j != lastindex(_A[:, j])
-                    median_filter!(_A, i, j, 3)
-                end
-            end
-        end
-    end
+    band_filter!(_A, pxls, dim)
     return _A
 end
