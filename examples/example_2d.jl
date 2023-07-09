@@ -41,6 +41,7 @@ ct1 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
 contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
 Colorbar(fig[1, 2], ct1, label = "Intensity")
 
+z = transpose(z)
 band_filter(z, 37:40, 1)
 
 zax2 = Axis(fig[2, 1], title = "filtered", xticks = x[1]:2:x[end], yticks = y[1]:5:y[end])
