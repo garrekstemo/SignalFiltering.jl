@@ -38,7 +38,7 @@ end
 A naive filter that takes the median value of the two 
 neighboring values in a vector `v` around index `i`.
 """
-function median_filter(v::AbstractVector, i::Int)
+function median_filter(v::AbstractVector, i::Int, window_size::Int=1)
     _v = copy(v)
     median_filter!(_v, i)
     return _v
@@ -49,8 +49,11 @@ end
 
 Like `median_filter(v, i)` but the input vector may be replaced.
 """
-function median_filter!(v::AbstractVector, i::Int)
-    v[i] = median([v[i], v[i+1], v[i-1]])
+function median_filter!(v::AbstractVector, i::Int, window_size::Int=1)
+    if iseven(window_size)
+        throw(ArgumentError("window_size must be odd to have a center element"))
+    end
+    v[i] = median([v[i], v[i+window_size÷2], v[i-window_size÷2]])
 end
 
 
