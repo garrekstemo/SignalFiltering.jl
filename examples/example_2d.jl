@@ -37,7 +37,7 @@ ax1 = Axis(fig[1, 1], title = "raw", xticks = x[1]:2:x[end], yticks = y[1]:2:y[e
 ct1 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
 contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
 # hm = heatmap!(x, y, z, colormap = :RdBu)
-Colorbar(fig[1, 2], hm, label = "Intensity")
+# Colorbar(fig[1, 2], hm, label = "Intensity")
 
 
 median_filter!(z, [38], 1)
@@ -47,6 +47,6 @@ ax2 = Axis(fig[2, 1], title = "filtered", xticks = x[1]:2:x[end], yticks = y[1]:
 ct2 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
 contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
 # hm = heatmap!(x, y, z, colormap = :RdBu)
-Colorbar(fig[2, 2], hm, label = "Intensity")
+# Colorbar(fig[2, 2], hm, label = "Intensity")
 
 fig
