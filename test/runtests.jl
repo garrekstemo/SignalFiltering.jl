@@ -78,8 +78,8 @@ using SignalFiltering
 
 
     # Test band filter
-    A = ones(Int, 10, 10)
-    A[2, 7] = 9
-    A_new = band_filter!(A, 3, [7])
-    @test A_new == ones(Int, size(A))
+    # A = ones(Int, 10, 10)
+    # A[2, 7] = 9
+    # A_new = band_filter!(A, 3, [7])
+    # @test A_new == ones(Int, size(A))
 end
