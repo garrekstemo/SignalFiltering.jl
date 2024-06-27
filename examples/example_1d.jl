@@ -1,6 +1,5 @@
 using SignalFiltering
 using GLMakie
-GLMakie.activate!(inline=false)
 
 function lorentzian(x, A, ω_0, Γ)
     data = zeros(length(x))
@@ -20,14 +19,14 @@ dp1, dp2 = 25, 45
 y[dp1] = -10
 y[dp2] = 10
 
-fig = Figure(resolution = (500, 900))
+fig = Figure(size = (500, 900))
 DataInspector()
 
 ax1 = Axis(fig[1, 1], title = "raw")
 lines!(x, y)
 
-median_filter!(y, dp1, 3)
-median_filter!(y, dp2, 3)
+median_filter!(y, 3, dp1)
+median_filter!(y, 3, dp2)
 
 ax2 = Axis(fig[2, 1], title = "filtered")
 lines!(x, y)

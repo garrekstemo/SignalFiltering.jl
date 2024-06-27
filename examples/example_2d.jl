@@ -1,6 +1,5 @@
 using SignalFiltering
 using GLMakie
-GLMakie.activate!(inline=false)
 
 function lorentz2d(x, y, A, ω_0, Γ)
     data = zeros(length(x), length(y))
@@ -29,7 +28,7 @@ z = lorentz2d(x, y, A, ω1, Γ) .- lorentz2d(x, y, A, ω2, Γ) #.+ 0.1 * randn(l
 deadpixels(z, 40, 7, 20)
 deadpixels(z, 38, 8, -20)
 
-fig = Figure(resolution = (500, 800))
+fig = Figure(size = (500, 800))
 DataInspector()
 
 levels = minimum(z)-2:1:maximum(z)+2
@@ -39,9 +38,24 @@ contour!(x, y, z, levels=levels, linewidth = 0.5, color = :black)
 # hm = heatmap!(x, y, z, colormap = :RdBu)
 # Colorbar(fig[1, 2], hm, label = "Intensity")
 
+# function band_filter!(A, window, pxls, dim=1)
+#     for (i, row) in enumerate(eachrow(A))
+#         for (j, col) in enumerate(eachcol(A))
+#             pixeldim = i
+#             if dim == 2
+#                 pixeldim = j
+#             end
+#             if pixeldim in pxls
+#                 if j != 1 && j != lastindex(A[:, j])
+#                     median_filter!(A, window, i, j)
+#                 end
+#             end
+#         end
+#     end
+# end
 
-median_filter!(z, [38], 1)
-median_filter!(z, [40], 1)
+band_filter!(z, 3, [38])
+band_filter!(z, 3, [40])
 
 ax2 = Axis(fig[2, 1], title = "filtered", xticks = x[1]:2:x[end], yticks = y[1]:2:y[end])
 ct2 = contourf!(x, y, z, levels=levels, colormap = :RdBu)
